@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.lqdev.learning.mybatisplus.samples.biz.dao.UserDao">
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, code, name, gmt_create, gmt_modified
+    </sql>
+
+    <!-- 由于设置了别名：typeAliasesPackage=cn.lqdev.learning.mybatisplus.samples.biz.entity，所以resultType可以不写全路径了。 -->
+    <select id="selectUserCustomParamsByXml" resultType="user">
+        SELECT 
+        <include refid="Base_Column_List"/> 
+        FROM USER 
+       WHERE CODE = #{userCode}
+    </select>
+
+    <!-- 条件构造器形式 -->
+	<select id="selectUserWrapper" resultType="user">
+		SELECT
+		<include refid="Base_Column_List" />
+		FROM USER
+		<where>
+			${ew.sqlSegment}
+		</where>
+	</select>
+</mapper>
